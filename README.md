@@ -1,7 +1,7 @@
 # Handwritten Digit Recognition based on Convolutional Neural Networks
 
-Jiayi CUI
-Yang GAO
+Jiayi CUI,
+Yang GAO,
 Qingyang ZHONG
 
 ## Minst data set
