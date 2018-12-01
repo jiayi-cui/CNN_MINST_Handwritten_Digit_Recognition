@@ -15,7 +15,7 @@ Qingyang ZHONG
 
 Convolutional Neural Networks
 
-How CNN works
++ How CNN works
 Convolutional Neural Networks take images as inputs for each neuron, perform a dot product and optionally follows it with a non-linearity. The whole network expresses a single differentiable score function from the image pixel class score.
 
 Like normal neural networks, Convolutional neural networks have layers consist of a set of neurons. Neurons in each layer are connected to the neurons in the layer before them. While unlike normal neural networks, in CNN neurons in a layer are arranged in 3 dimensions: width, height and depth. Neurons in a layer are only connected to a small region of the previous layer. The final layer will output a single vector of class score, arranged along the depth dimension.
@@ -28,7 +28,7 @@ Pooling layers are inserted in-between convolutional layers to the spatial size 
 
 Fully-connected layer is a kind of layer whose neurons are fully connected to all activations in the previous layer. Therefore, those activations can be computed by matrix multiplication. The only difference between fully-connected layer and convolutional layer is local connectivity and fully connectivity. And because they both function through matrix multiplication, fully-connected layers and convolutional layers can be converted to one another. ?For any CONV layer there is an FC layer that implements the same forward function. The weight matrix would be a large matrix that is mostly zero except for at certain blocks (due to local connectivity) where the weights in many of the blocks are equal (due to parameter sharing).?
 
-Parameters
++ Parameters
 Convolutional Layer
 As mentioned above, CNN neurons are only connected to a small region of the previous layer. Such local connectivity is spatially defined by a hyperparameter, receptive field (F), which is the size of the kernel. For example, the size of the input matrix is 256*256*3, and the receptive field (the size of the filter) is 5*5, then each neuron in this convolutional layer will have weight=5*5*3 connectivity to the input image.
 
@@ -56,7 +56,7 @@ We start with a basic CNN model, setting batch size = 256, epochs = 40. To train
 
 
 
-Starting Model
++ Starting Model
 Layers of our starting model are:
 1.	2D convolutional layer, F = 3*3, producing 32 feature maps
 2.	2D convolutional layer, F = 3*3, producing 32 feature maps
@@ -72,15 +72,15 @@ Layers of our starting model are:
 12.	Fully connected output layer with 10 units
 
 
-Final model
++ Final model
 To improve accuracy, we augment the training data by rotating, zooming, shifting, flipping, standardizing and normalizing the images, and use the augmented training set to fit the model.
 
-Difficulties
++ Difficulties
 The difficulties in implementing lay in finding the optimal values of parameters epochs, batch size, learning rate. With high computation cost of running the whole training dataset, it?s very time consuming running multiple times to find the optimal parameter values.
 
 Although decreasing loss function and increasing the test accuracy is the first priority target to reach, it's so hard to identify some digits even with human eyes. These digits have such vague shapes that either human or computers can hardly recognize them correctly. After 40 epochs running, the training and validation loss function and accuracy move smoothly slow and keep stable. This means some digits may have actual trouble to classify.
 
-Improvement
++ Improvement
 Adding 2 more convolutional layers (128 feature maps) may increase performance, but this will be even more computational expensive. Running with GPUs is a good way to improve the performance of the model, but it may spend a lot of money to train each possible parameter combinations.
 Sample Code Debug
 There is a conceptual error in model.fit() of the sample code. The validation data should not come from test data. Although validation data is not used to fit the model, it does affect the model in the training process. If we use test data as validation data, it will lead to overfitting. Therefore, we use validation_split instead, which choose 10 percent of the training data as validation data and use the rest 90 percent to fit the model.
